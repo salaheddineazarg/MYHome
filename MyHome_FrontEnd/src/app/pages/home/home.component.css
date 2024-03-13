@@ -1,0 +1,8 @@
+.header{
+  width: 100%;
+  background-image: linear-gradient(to right,rgba(239, 120, 0, 0.5), rgba(11, 11, 11, 0.8)), url('https://demo04.houzez.co/wp-content/uploads/2016/03/205.jpg');
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

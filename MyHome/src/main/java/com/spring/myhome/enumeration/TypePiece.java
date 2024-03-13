@@ -1,0 +1,31 @@
+package com.spring.myhome.enumeration;
+
+
+public enum TypePiece {
+    FOYER,
+    ENTRANCE_HALL,
+    KITCHEN_ROOM,
+    FAMILY_ROOM,
+    DINING_ROOM,
+    LIVING_ROOM,
+    MASTER_BEDROOM,
+    BATHROOM,
+    LAUNDRY_ROOM,
+    GUEST_ROOM,
+    HOME_OFFICE,
+    LIBRARY,
+    KIDS_BEDROOM,
+    PLAYROOM,
+    HOME_THEATRE_ROOM,
+    GYM_ROOM,
+    BASEMENT,
+    GARAGE,
+    WALK_IN_CLOSET,
+    PANTRY,
+    GAMING_ROOM,
+    ATTIC,
+    SUNROOMS_AND_CONSERVATORIES,
+    STORAGE_ROOM,
+    MUSIC_ROOM,
+    WINE_CELLAR
+}

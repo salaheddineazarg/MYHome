@@ -1,0 +1,33 @@
+{
+      "types": [
+        "Single Family Home",
+        "Apartment",
+        "Townhouse",
+        "Condo",
+        "Duplex",
+        "Cottage",
+        "Bungalow",
+        "Mansion",
+        "Mobile Home",
+        "Tiny House",
+        "Log Cabin",
+        "Villa",
+        "Office Building",
+        "Retail Space",
+        "Warehouse",
+        "Restaurant",
+        "Hotel",
+        "Industrial Property",
+        "Residential Land",
+        "Commercial Land",
+        "Agricultural Land",
+        "Waterfront Property",
+        "Historic Property",
+        "Eco-Friendly Property",
+        "Smart Home",
+        "Floating Home",
+        "Treehouse",
+        "Castle",
+        "Island Property"
+      ]
+}
