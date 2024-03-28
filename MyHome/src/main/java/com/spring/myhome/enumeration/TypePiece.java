@@ -9,6 +9,7 @@ public enum TypePiece {
     DINING_ROOM,
     LIVING_ROOM,
     MASTER_BEDROOM,
+    BEDROOM,
     BATHROOM,
     LAUNDRY_ROOM,
     GUEST_ROOM,

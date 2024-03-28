@@ -1,7 +1,7 @@
 package com.spring.myhome.entities;
 
 
-import com.spring.myhome.costumeValidation.ValidType;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class Property {
     @NotBlank(message = "Description cannot be blank")
     private String description;
 
-    @ValidType(message = "Invalid category")
+    @NotBlank(message = "Category cannot be blank")
     private String category;
 
     @NotNull(message = "Area cannot be null")

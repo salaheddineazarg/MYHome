@@ -1,11 +1,8 @@
 package com.spring.myhome.dto.Operation;
 
 
-import com.spring.myhome.dto.Property.PropertyDto;
-import com.spring.myhome.dto.User.UserDto;
+
 import com.spring.myhome.enumeration.TypeOperation;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
@@ -37,9 +34,7 @@ public class OperationDto {
 
     @NotNull(message = "User ID cannot be null")
     @Positive(message = "User ID must be a positive number")
-    private UUID user_id;
+    private String user_name;
 
-    @NotNull(message = "Property ID cannot be null")
-    @Positive(message = "Property ID must be a positive number")
-    private UUID property_id;
+
 }

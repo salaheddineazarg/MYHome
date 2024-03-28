@@ -25,6 +25,7 @@ public class Photo {
     private String link;
 
     @ManyToOne
-    @NotNull(message = "Property cannot be null")
+    @JoinColumn(name = "property_id")
+    //@NotNull(message = "Property cannot be null")
     private Property property;
 }

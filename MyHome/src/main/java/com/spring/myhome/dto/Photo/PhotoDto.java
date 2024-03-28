@@ -22,7 +22,5 @@ public class PhotoDto {
     @Pattern(regexp = "^https?://\\S+$", message = "Link must be a valid URL")
     private String link;
 
-    @NotNull(message = "Property ID cannot be null")
-    @Positive(message = "Property ID must be a positive number")
-    private UUID property_id;
+
 }

@@ -27,8 +27,6 @@ public class PieceDto {
     @Enumerated(EnumType.STRING)
     private TypePiece typePiece;
 
-    @NotNull(message = "Floor ID cannot be null")
-    @Positive(message = "Floor ID must be a positive number")
     private UUID floor_id;
 
 }

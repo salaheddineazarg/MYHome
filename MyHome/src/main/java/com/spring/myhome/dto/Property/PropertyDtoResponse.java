@@ -1,7 +1,7 @@
 package com.spring.myhome.dto.Property;
 
 
-import com.spring.myhome.costumeValidation.ValidType;
+
 import com.spring.myhome.dto.Floor.FloorDto;
 import com.spring.myhome.dto.Operation.OperationDto;
 import com.spring.myhome.dto.Photo.PhotoDto;
@@ -19,7 +19,7 @@ public class PropertyDtoResponse {
 
     private UUID id;
     private String description;
-    @ValidType
+
     private String category;
     private Double area;
     private Integer floorNbr;

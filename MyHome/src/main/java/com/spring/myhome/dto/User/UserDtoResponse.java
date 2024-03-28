@@ -21,19 +21,12 @@ import java.util.UUID;
 public class UserDtoResponse {
 
     private UUID id;
-
-
     private String userName;
-
+    private String fullName;
     private String password;
-
     private String address;
-
     private IdentityDoc identityDocument;
-
     private String identityNumber;
-
     private List<OperationDto> operations;
-
     private List<ConversationDto> conversations;
 }

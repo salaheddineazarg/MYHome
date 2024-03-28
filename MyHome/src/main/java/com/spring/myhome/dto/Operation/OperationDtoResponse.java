@@ -1,5 +1,8 @@
 package com.spring.myhome.dto.Operation;
 
+import com.spring.myhome.dto.Property.PropertyDto;
+import com.spring.myhome.dto.Property.PropertyDtoResponse;
+import com.spring.myhome.dto.User.UserDto;
 import com.spring.myhome.enumeration.TypeOperation;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,6 @@ public class OperationDtoResponse {
     @Enumerated
     private TypeOperation typeOperation;
     private LocalDateTime date;
-    private UUID user_id;
-    private UUID property_id;
+    private UserDto user;
+    private PropertyDtoResponse property;
 }

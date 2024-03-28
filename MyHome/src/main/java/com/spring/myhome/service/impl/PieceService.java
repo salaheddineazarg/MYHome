@@ -10,6 +10,7 @@ import com.spring.myhome.service.interfaces.IPiece;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,17 +39,25 @@ public class PieceService extends GenericServiceImpl<PieceDtoResponse,PieceDto, 
 
     @Override
     public Optional<PieceDtoResponse> saveService(PieceDto pieceDto) {
-        Piece piece = convertRequestToEntity(pieceDto);
-        Floor floor = floorRepository.findById(pieceDto.getFloor_id()).get();
-        if (floor.getPieceNbr()> pieceRepository.countPieceByFloorId(pieceDto.getFloor_id())){
-            piece = pieceRepository.save(piece);
-
-            return Optional.of(convertEntityToResponse(piece));
-        }
-
-        return Optional.empty();
+        return super.saveService(pieceDto);
     }
 
+    @Override
+    public List<Piece> savePieceService(List<PieceDto> pieceDtos) {
+        List<Piece> savedPieces = new ArrayList<>();
+        for (PieceDto pieceDto : pieceDtos) {
+            Piece piece = convertRequestToEntity(pieceDto);
+            Optional<Floor> floorOptional = floorRepository.findById(pieceDto.getFloor_id());
+            if (floorOptional.isPresent()) {
+                Floor floor = floorOptional.get();
+                if (floor.getPieceNbr() > pieceRepository.countPieceByFloorId(pieceDto.getFloor_id())) {
+                    piece = pieceRepository.save(piece);
+                    savedPieces.add(piece);
+                }
+            }
+        }
+        return savedPieces;
+    }
     @Override
     protected Piece convertRequestToEntity(PieceDto pieceDto) {
         return modelMapper.map(pieceDto,Piece.class);

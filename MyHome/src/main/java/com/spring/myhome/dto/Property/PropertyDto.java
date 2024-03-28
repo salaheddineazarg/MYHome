@@ -1,9 +1,7 @@
 package com.spring.myhome.dto.Property;
 
-import com.spring.myhome.costumeValidation.ValidType;
-import com.spring.myhome.entities.Floor;
-import com.spring.myhome.entities.Operation;
-import com.spring.myhome.entities.Photo;
+
+import com.spring.myhome.dto.Photo.PhotoDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -21,10 +19,10 @@ import java.util.UUID;
 public class PropertyDto {
 
     private UUID id;
-    @NotNull(message = "Description cannot be null")
+    @NotBlank(message = "Description cannot be null")
     private String description;
 
-    @ValidType(message = "Invalid category")
+    @NotBlank(message = "Categoey cannot be blank")
     private String category;
 
     @NotNull(message = "Area cannot be null")
@@ -50,9 +48,7 @@ public class PropertyDto {
     @Positive(message = "Floor number must be a positive number")
     private Integer floorNbr;
 
-    @NotNull(message = "Image IDs cannot be null")
-    @Size(min = 1, message = "At least one image ID must be provided")
-    private List<UUID> image_id;
+    private List<PhotoDto> photos;
 
 
 }

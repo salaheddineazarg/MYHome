@@ -29,7 +29,7 @@ public class UserDto {
 
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters long")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]+$", message = "Password must contain at least one letter, one number, and may include special characters")
+   // @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d@$!%*#?&]+$", message = "Password must contain at least one letter, one number, and may include special characters")
     private String password;
 
     @NotBlank(message = "Address cannot be blank")

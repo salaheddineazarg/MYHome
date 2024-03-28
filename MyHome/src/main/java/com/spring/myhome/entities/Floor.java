@@ -32,7 +32,7 @@ public class Floor {
     private Double area;
 
     @ManyToOne
-    @NotNull(message = "Property cannot be null")
+   // @NotNull(message = "Property cannot be null")
     private Property property;
 
     @OneToMany(mappedBy = "floor", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval = true)

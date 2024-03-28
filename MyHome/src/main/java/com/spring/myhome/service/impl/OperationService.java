@@ -46,25 +46,7 @@ public class OperationService extends GenericServiceImpl<
     }
 
 
-    @Override
-    public Optional<OperationDtoResponse> saveService(OperationDto operationDto) {
-        Operation operation = convertRequestToEntity(operationDto);
 
-        if (operationDto.getProperty_id() != null){
-            operation.setProperty(
-                    propertyRepository.findById(operationDto.getProperty_id()).get()
-            );
-        }
-
-        if (operationDto.getUser_id()!= null){
-            operation.setUser(
-                    userRepository.findById(operationDto.getUser_id()).get()
-            );
-        }
-        operation = operationRepository.save(operation);
-
-        return Optional.ofNullable(convertEntityToResponse(operation));
-    }
 
     @Override
     protected Operation convertRequestToEntity(OperationDto operationDto) {

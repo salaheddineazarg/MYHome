@@ -29,7 +29,7 @@ public abstract class GenericControllerImpl<Response, Request,GenericService ext
 
     @PostMapping
     public ResponseEntity<Response> create(@Valid @RequestBody Request request) {
-        System.out.println(request);
+
         return service.saveService(request)
                 .map(user->new ResponseEntity<>(user,HttpStatus.CREATED))
                 .orElse(new ResponseEntity<>(null,HttpStatus.OK));
