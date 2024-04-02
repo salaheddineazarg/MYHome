@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface IPiece extends IData<PieceDtoResponse, PieceDto, UUID>{
 
 
-    List<Piece> savePieceService( List<PieceDto> pieceDtos);
+    List<Piece> savePieceService( List<PieceDto> pieceDtos,UUID floorId);
 }

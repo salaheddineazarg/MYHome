@@ -44,11 +44,10 @@ public class AuthenticationService {
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
+
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
-                .refreshToken(refreshToken)
                 .user(modelMapper.map(savedUser, UserDtoResponse.class))
                 .build();
     }
@@ -63,13 +62,11 @@ public class AuthenticationService {
         var user = repository.findByUserName(request.getUserName())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .user(modelMapper.map(user, UserDtoResponse.class))
-                .refreshToken(refreshToken)
                 .build();
     }
 
@@ -116,7 +113,6 @@ public class AuthenticationService {
                 saveUserToken(user, accessToken);
                 var authResponse = AuthenticationResponse.builder()
                         .accessToken(accessToken)
-                        .refreshToken(refreshToken)
                         .build();
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }

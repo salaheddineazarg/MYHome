@@ -27,6 +27,7 @@ public class PieceDto {
     @Enumerated(EnumType.STRING)
     private TypePiece typePiece;
 
+
     private UUID floor_id;
 
 }

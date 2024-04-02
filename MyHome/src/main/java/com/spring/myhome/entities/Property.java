@@ -4,9 +4,7 @@ package com.spring.myhome.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -56,6 +54,6 @@ public class Property {
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Operation> operations;
 
-    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Photo> photos;
 }

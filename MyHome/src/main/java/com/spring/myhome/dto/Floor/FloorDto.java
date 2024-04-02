@@ -26,7 +26,7 @@ public class FloorDto {
     @Positive(message = "Area must be a positive number")
     private Double area;
 
-  //  @Positive(message = "Property ID must be a positive number")
+    @Positive(message = "Property ID must be a positive number")
     private UUID property_id;
 
     private List<PieceDto> pieces;

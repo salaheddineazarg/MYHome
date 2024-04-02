@@ -28,7 +28,7 @@ public class Piece {
     private TypePiece typePiece;
 
     @ManyToOne
-    @NotNull(message = "Floor cannot be null")
+  //  @NotNull(message = "Floor cannot be null")
     private Floor floor;
 
 }

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -49,30 +51,34 @@ public class FloorService extends GenericServiceImpl<FloorDtoResponse,FloorDto,F
     }
 
 
-    //@Transactional
-    public List<Floor> saveFloorService(List<FloorDto> floorDtoList) {
+
+
+
+
+    public List<Floor> saveFloorService(UUID propertyId, List<FloorDto> floorDtoList) {
         List<Floor> savedFloors = new ArrayList<>();
 
-
-        System.out.println(floorDtoList);
         for (FloorDto floorDto : floorDtoList) {
             Floor floor = convertRequestToEntity(floorDto);
-            Property property = propertyRepository.findById(floorDto.getProperty_id()).orElse(null);
-            if (property != null && property.getFloorNbr() > floorRepository.countFloorByPropertyId(floorDto.getProperty_id())) {
+            Property property = propertyRepository.findById(propertyId)
+                    .orElseThrow(() -> new IllegalArgumentException("Property not found for id: " + propertyId));
+
+            if (property.getFloorNbr() > floorRepository.countFloorByPropertyId(propertyId)) {
+                floor.setProperty(property);
                 Floor savedFloor = floorRepository.save(floor);
-                for (PieceDto pieceDto:floorDto.getPieces()){
-                    pieceDto.setFloor_id(savedFloor.getId());
-                }
 
-              List<Piece> pieces =  pieceService.savePieceService(floorDto.getPieces());
+                List<PieceDto> pieceDtos = floorDto.getPieces();
+                List<Piece> pieces = pieceService.savePieceService(pieceDtos, savedFloor.getId());
+
                 savedFloor.setPieces(pieces);
-
                 savedFloors.add(savedFloor);
             }
         }
 
         return savedFloors;
     }
+
+
 
 
 

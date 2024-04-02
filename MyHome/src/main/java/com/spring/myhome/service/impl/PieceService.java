@@ -43,21 +43,24 @@ public class PieceService extends GenericServiceImpl<PieceDtoResponse,PieceDto, 
     }
 
     @Override
-    public List<Piece> savePieceService(List<PieceDto> pieceDtos) {
+    public List<Piece> savePieceService(List<PieceDto> pieceDtos, UUID floorId) {
         List<Piece> savedPieces = new ArrayList<>();
+
         for (PieceDto pieceDto : pieceDtos) {
-            Piece piece = convertRequestToEntity(pieceDto);
-            Optional<Floor> floorOptional = floorRepository.findById(pieceDto.getFloor_id());
-            if (floorOptional.isPresent()) {
-                Floor floor = floorOptional.get();
-                if (floor.getPieceNbr() > pieceRepository.countPieceByFloorId(pieceDto.getFloor_id())) {
-                    piece = pieceRepository.save(piece);
-                    savedPieces.add(piece);
-                }
+            Floor floor = floorRepository.findById(floorId)
+                    .orElseThrow(() -> new IllegalArgumentException("Floor not found for id: " + floorId));
+
+            if (floor.getPieceNbr() > pieceRepository.countPieceByFloorId(floorId)) {
+                Piece piece = convertRequestToEntity(pieceDto);
+                piece.setFloor(floor);
+                piece = pieceRepository.save(piece);
+                savedPieces.add(piece);
             }
         }
+
         return savedPieces;
     }
+
     @Override
     protected Piece convertRequestToEntity(PieceDto pieceDto) {
         return modelMapper.map(pieceDto,Piece.class);

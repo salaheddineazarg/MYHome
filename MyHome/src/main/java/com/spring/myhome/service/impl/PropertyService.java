@@ -18,12 +18,14 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -62,43 +64,49 @@ public class PropertyService extends GenericServiceImpl<
 
     }
 
+
     @Override
     public Optional<OperationDtoResponse> saveService(PropertyOperationDto propertyOperationDto) {
         PropertyDto propertyDto = propertyOperationDto.getPropertyDto();
         OperationDto operationDto = propertyOperationDto.getOperationDto();
         List<FloorDto> floorDtos = propertyOperationDto.getFloors();
 
-
         Property property = convertRequestToEntity(propertyDto);
-        Operation operation = convertRequestToEntity(operationDto);
-
         property = propertyRepository.save(property);
-        List<Photo> photos =Arrays.asList(modelMapper.map(propertyDto.getPhotos(),Photo[].class));
-        for(Photo photo: photos) {
-            photo.setProperty(property);
-        }
-        photoRepository.saveAll(
-               photos
-        );
 
-        if (property.getFloorNbr()> 0 && floorDtos.size() == property.getFloorNbr()){
-            for (FloorDto floorDto :floorDtos){
-                floorDto.setProperty_id(property.getId());
-            }
-         List<Floor> floors =  this.floorService.saveFloorService(floorDtos);
-         property.setFloors(floors);
-        }
 
+        if (property == null) {
+            return Optional.empty();
+        }
+        final Property finalProperty = property;
+        List<Photo> photos = propertyDto.getPhotos().stream()
+                .map(photoDto -> {
+                    Photo photo = modelMapper.map(photoDto, Photo.class);
+                    photo.setProperty(finalProperty);
+                    return photo;
+                })
+                .collect(Collectors.toList());
+        photoRepository.saveAll(photos);
 
         property.setPhotos(photos);
+
+        if (property.getFloorNbr() > 0 && floorDtos.size() == property.getFloorNbr()) {
+            List<Floor> savedFloors = floorService.saveFloorService(property.getId(), floorDtos);
+            property.setFloors(savedFloors);
+        }
+
+        System.out.println("property:"+property);
+        System.exit(10);
+        Operation operation = convertRequestToEntity(operationDto);
         operation.setProperty(property);
-        operation.setUser(
-              userRepository.findByUserName(operationDto.getUser_name()).orElseThrow()
-        );
+        operation.setUser(userRepository.findByUserName(operationDto.getUser_name()).orElseThrow());
+
         operation = operationRepository.save(operation);
 
         return Optional.ofNullable(convertEntityToResponse(operation));
     }
+
+
 
 
 

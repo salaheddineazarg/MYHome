@@ -33,7 +33,6 @@ public class PropertyController extends GenericControllerImpl<PropertyDtoRespons
 
     @PostMapping("/create")
     public ResponseEntity<OperationDtoResponse> create(@RequestBody PropertyOperationDto propertyOperationDto) {
-        System.out.println(propertyOperationDto);
         return service.saveService(propertyOperationDto)
                 .map(user->new ResponseEntity<>(user, HttpStatus.CREATED))
                 .orElse(new ResponseEntity<>(null,HttpStatus.OK));
